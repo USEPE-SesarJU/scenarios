@@ -1,0 +1,12 @@
+00:00:00.00> PAN 52.43773 9.69229
+00:00:00.00> ZOOM 20
+00:00:00.00> PCALL ../nommon/city_model/data/exercise_3/operation_areas.scn REL
+00:00:00.00> FF
+00:00:00.00> PCALL ../nommon/city_model/data/exercise_3/drone_1_mock.scn REL
+00:00:00.00> PCALL ../nommon/city_model/data/exercise_3/drone_2_mock.scn REL
+00:00:00.00> PCALL ../nommon/city_model/data/exercise_3/drone_3_mock.scn REL
+00:00:30.00> PCALL ../nommon/city_model/data/exercise_3/drone_4_mock.scn REL
+00:04:45.00> PCALL ../nommon/city_model/data/exercise_3/drone_5_mock.scn REL
+00:05:40.00> PCALL ../nommon/city_model/data/exercise_3/helicopter_mock.scn REL
+00:06:00.00> OP
+00:06:02.00> QUIT
