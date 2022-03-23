@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "bluesky-scenario"
+version = "0.1.0"
+description = "BlueSky helper files and tools used for the D2-C2 separation method simulations for USEPE"
+authors = []
+license = "GPL-3.0-only"
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+geopandas = "^0.10.2"
+Shapely = "^1.8.1"
+doepy = "^0.0.1"
+
+[tool.poetry.dev-dependencies]
+
+[tool.black]
+line-length = 99
+
+[tool.isort]
+profile = "black" 
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
