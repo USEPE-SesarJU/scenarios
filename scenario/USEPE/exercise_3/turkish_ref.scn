@@ -1,0 +1,16 @@
+#Create Turkish airlines 556 at runway runway 27R, takeing off to the west
+00:00:00.00> CRE TR556 B738 52.466930 9.699435 90 0 0
+
+00:00:00.00> DEFWPT TR556_1 52.472500 9.514790 FIX
+00:00:00.00> ADDWPT TR556 TR556_1
+
+#takeoff roll
+00:00:00.00> SPD TR556 100
+
+#rotation speed, take off
+00:00:10.00> SPD TR556 150
+00:00:11.00> VS TR556 1500
+00:00:12.00> ALT TR556 FL100
+
+#climb out speed
+00:00:20.00> SPD TR556 250

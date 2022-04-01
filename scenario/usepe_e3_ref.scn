@@ -16,6 +16,9 @@
 00:00:00.00> PCALL USEPE/exercise_3/UAS3_ref.scn REL
 00:00:30.00> PCALL USEPE/exercise_3/UAS4_ref.scn REL
 00:04:45.00> PCALL USEPE/exercise_3/UAS5_ref.scn REL
+00:05:00.00> PCALL USEPE/exercise_3/lufthansa_ref.scn REL
 00:05:40.00> PCALL USEPE/exercise_3/helicopter_ref.scn REL
+00:10:00.00> PCALL USEPE/exercise_3/turkish_ref.scn REL
+00:13:30.00> PCALL USEPE/exercise_3/eurowings_ref.scn REL
 00:17:00.00> OP
 00:17:02.00> QUIT
