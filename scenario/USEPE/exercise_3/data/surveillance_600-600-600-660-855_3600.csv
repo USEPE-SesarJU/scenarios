@@ -1,0 +1,6 @@
+,origin_lat,origin_lon,origin_alt,destination_lat,destination_lon,destination_alt,departure,departure_s,drone,purpose,operation_id,operation_duration,planned_time_s
+0,52.44893,9.72996,5,52.45044,9.71846,50,00:10:00,600,M600,surveillance,op1,600,0
+1,52.43906,9.69446,5,52.44066,9.68234,50,00:10:00,600,M600,surveillance,op2,450,0
+2,52.42035,9.65075,51,52.44252,9.67161,50,00:10:00,600,M600,surveillance,op3,330,0
+3,52.42035,9.65075,51,52.43126,9.67879,50,00:11:00,660,M600,surveillance,op4,240,60
+4,52.43218,9.68395,5,52.43572,9.68334,50,00:14:15,855,W178,surveillance,op5,660,255
