@@ -1,1 +1,3 @@
 .vscode
+lookup_tables/
+*.graphml

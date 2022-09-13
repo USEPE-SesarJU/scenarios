@@ -1,0 +1,19 @@
+00:00:00.00> PLUGIN LOAD USEPE
+00:00:00.00> USEPE CONFIG /home/ror/ws/scenarios/exercise_3/settings_exe_3_d2c2.cfg
+00:00:00.00> USEPE ON
+00:00:00.00> ASAS ON
+00:00:00.00> CDMETHOD StateBased
+00:00:00.00> ZONER 0.0020248387499999998
+00:00:00.00> ZONEDH 32.8084
+00:00:00.00> DTLOOK 10
+00:00:00.00> RESO MVP
+00:00:00.00> RMETHH SPD
+00:00:00.00> CASMACHTHR 0
+00:00:00.00> PLUGIN LOAD USEPELOGGER
+00:00:00.00> USEPELOGGER ON
+00:00:00.00> CRELOG STATELOG 1 STATE LOG - Positions and velocities of all drones - Simulation Time [s], identifier, aircraft type, latitude, longitude, altitude, heading, track angle, true airspeed, ground speed, ground speed north, ground speed east, vertical speed, longitudinal acceleration
+00:00:00.00> STATELOG ADD id, type, lat, lon, alt, hdg, trk, tas, gs, gsnorth, gseast, vs, ax
+00:00:00.00> STATELOG ON
+00:00:00.00> VIS MAP TILEDMAP
+00:00:00.00> PAN 52.43773 9.69229
+00:00:00.00> ZOOM 16
