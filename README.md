@@ -1,9 +1,9 @@
 # Scenarios
 
-Scenario files for USEPE simulations
+Scenario files, with configuration and data, for USEPE simulations, both reference and solution (D2C2) scenarios.
 
 ## Exercises
 
 1. Last Mile Delivery (_to be added_)
-2. Emergency Services ([Reference Scenario](scenario/USEPE/exercise_2/reference.geojson))
-3. Urban Surveillance ([Reference Scenario](scenario/usepe_e3_ref.scn))
+2. Emergency Services (In directory exercise_2)
+3. Urban Surveillance (In directory exercise_3)
