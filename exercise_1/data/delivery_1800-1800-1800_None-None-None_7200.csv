@@ -1,0 +1,4 @@
+,origin_lat,origin_lon,origin_alt,destination_lat,destination_lon,destination_alt,departure,departure_s,drone,purpose,operation_id,operation_duration,planned_time_s
+0,52.4216,9.6704,50,52.3594,9.7499,25,00:40:00,2400,M600,delivery,,,1800
+1,52.3145,9.8171,50,52.3594,9.7499,25,00:40:00,2400,M600,delivery,,,1800
+2,52.3701,9.7422,50,52.3594,9.7499,25,00:40:00,2400,M600,delivery,,,1800
