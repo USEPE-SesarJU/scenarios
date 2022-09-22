@@ -1,5 +1,7 @@
 # Create Eurowings 678 west of airport at 1500 ft, landing at runway 27R
 00:00:00.00> CRE %0 %1 52.458984 9.564432 90 1200 200
+00:00:00.00> ZONER 0.27 %0
+00:00:00.00> ZONEDH 1000 %0
 
 # Runway threshold, taxi route, stand as waypoints
 00:00:00.00> DEFWPT EW678_1 52.454977 9.677607 FIX

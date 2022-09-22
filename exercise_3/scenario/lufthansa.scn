@@ -1,5 +1,7 @@
 #Create Lufthansa 059 at runway 09R, taking off to the east
 00:00:00.00> CRE %0 %1 52.454977 9.677607 90 0 0
+00:00:00.00> ZONER 0.27 %0
+00:00:00.00> ZONEDH 1000 %0
 
 00:00:00.00> DEFWPT LH059_1 52.452044 9.785441 FIX
 00:00:00.00> ADDWPT %0 LH059_1
@@ -16,5 +18,3 @@
 
 #climb out speed
 00:00:40.00> SPD %0 250
-
-
