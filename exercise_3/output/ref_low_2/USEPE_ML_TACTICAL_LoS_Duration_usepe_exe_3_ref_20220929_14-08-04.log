@@ -1,0 +1,4 @@
+# LOSS OF DURATION LOG (with DURATION LENGTH)
+# simt: simulation duration, Index: id of pair of Aircrafts, Aircraft 1, Aircraft 2, Duration Time[s]: duration length within los pair aircraft
+# end_simt, Index, Aircraft1, Aircraft2, Duration Time[s]
+# simt
