@@ -11,6 +11,8 @@
 00:00:00.00> CASMACHTHR 0
 00:00:00.00> PLUGIN LOAD USEPELOGGER
 00:00:00.00> USEPELOGGER ON
+00:00:00.00> PLUGIN LOAD USEPE_ML
+00:00:00.00> USEPE_ML TACTICAL EXTEND
 00:00:00.00> CRELOG STATELOG 1 STATE LOG - Positions and velocities of all drones - Simulation Time [s], identifier, aircraft type, latitude, longitude, altitude, heading, track angle, true airspeed, ground speed, ground speed north, ground speed east, vertical speed, longitudinal acceleration
 00:00:00.00> STATELOG ADD id, type, lat, lon, alt, hdg, trk, tas, gs, gsnorth, gseast, vs, ax
 00:00:00.00> STATELOG ON
@@ -18,3 +20,4 @@
 00:00:00.00> PAN 52.43773 9.69229
 00:00:00.00> ZOOM 16
 00:00:01.00> FF
+00:30:00.00> USEPE_ML OFF
