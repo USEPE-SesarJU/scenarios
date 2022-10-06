@@ -18,7 +18,7 @@ if (@flightfiles > 1) {
     die("No LOS log in ${directory}?");
 }
 open(FFLIGHT, '<', $flightfiles[0]) or die("Failed to open $losfile[0]");
-@flights;
+%flights;
 $totalDistance = 0.0;
 $totalTime = 0.0;
 while(<FFLIGHT>){
@@ -63,16 +63,16 @@ if (@cpafiles > 1) {
     die("No LOS log in ${directory}?");
 }
 open(FCPA, '<', $cpafiles[0]) or die("Failed to open $losfile[0]");
-$nmacs = 0;
+%cpas;
 while(<FCPA>){
-#    print $_;
-    if($_ =~ /,(\d+.\d+)$/) {
-	#print("CPA is ", $1, "\n");
-	if ($1 < 3.75) {
-	    $nmacs++;
+   if($_ =~ /([\w\d_]+,[\w\d_]+),(\d+.\d+)$/) {
+	#print("CPA for ", $1, " is ", $2, "\n");
+	if ($2 < 3.75) {
+	    $cpas{$1} = $2;
+	    #print("Entry: ", $cpas{$1}, "\n");
 	}
     }
 }
-print("NMAC events: $nmacs");
 close(FCPA);
+print("NMAC events: ", scalar(keys(%cpas)));
 print("\n");
