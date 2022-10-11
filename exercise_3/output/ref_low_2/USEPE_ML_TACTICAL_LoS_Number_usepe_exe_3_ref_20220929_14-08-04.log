@@ -1,5 +1,0 @@
-# LOSS NUM LOG
-# Start and end of [counted] all loss of separation
-# simt: simulation duration, Index: id of pair of Aircrafts, Aircraft 1, Aircraft 2, losNum: Number of LoS between aircraft pairs
-# end_simt, Index, Aircraft1, Aircraft2, losNum
-# simt

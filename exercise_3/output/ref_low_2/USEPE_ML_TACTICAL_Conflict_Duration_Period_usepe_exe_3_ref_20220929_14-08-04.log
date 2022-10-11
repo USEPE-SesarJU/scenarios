@@ -1,4 +1,0 @@
-# CONF OF DURATION LOG (with DURATION PERIOD)
-# simt: simulation duration, Index: id of pair of Aircrafts, Aircraft 1, Aircraft 2, start duration Time[s]: start duration time within conflicted pair aircraft, end duration Time[s]: end duration time within conflicted pair aircraft, duration period Time[s]:  end duration Time[s] - start duration Time[s]
-# end_simt, Index, Aircraft1, Aircraft2, start duration Time[s], end duration Time[s], duration period Time[s]
-# simt
