@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 $directory = $ARGV[0];
 if (!-d $directory) {
-die ("$directory is not a directory! Terminating");
+    die ("$directory is not a directory! Terminating");
 }
 print("Analysing log files in: $directory\n");
 
@@ -42,13 +42,7 @@ print("Average distance flown: $avgerageDistance\n");
 $averageTime = $totalTime / $numLanded;
 print("Average flight time: $averageTime\n");
 
-#Conflicts
-$conflictsStarted = `grep ,start ${directory}/USEPECONF* | wc -l`;
-print("Conflicts started: $conflictsStarted");
-
-$conflictsEnded = `grep ,end ${directory}/USEPECONF* | wc -l`;
-print("Conflicts ended: $conflictsEnded");
-
+#Conflicts: Calculate actual number of conflicts, total conflict time and then average conflict time
 @conffiles = glob " ${directory}/USEPECONF*";
 
 if (@conffiles > 1) {
@@ -57,21 +51,57 @@ if (@conffiles > 1) {
     die("No conflict log in ${directory}? Terminating");
 }
 open(FCONS, '<', $conffiles[0]) or die("Failed to open $conffiles[0]");
-%conflicts;
+#Two hash maps to store start & end for each unique conflict pairs
+%conflictStart;
+%conflictEnd;
+#Extra hash map to keep track of ongoing conflicts between repeated conflict pairs
+%ongoingRepeatConflicts;
 $totalConflictTime = 0.0;
-while(<FCONS>){
-    if($_ =~ /^(\d+.\d+),([\w\d_]+,[\w\d_]+),start/) {
-	$conflicts{$2} = $1;
-	#print($2, " conflict starts at ", $conflicts{$2}, " seconds\n");
+# Join (don't count) repeated conflicts between the same pair if separated by less time than this:
+$minimumTimeBetweenConflicts = 20.0;
+$joinedConflitcs = 0;
+$repeatedConflicts = 0;
+while (<FCONS>){
+    if ($_ =~ /^(\d+.\d+),([\w\d_]+,[\w\d_]+),start/) {
+	if (exists $conflictEnd{$2})
+	{
+	    if ($1 - $conflictEnd{$2} < $minimumTimeBetweenConflicts)
+	    {
+		#print($2, " conflict continues ", $1 - $conflictEnd{$2}, " seconds later at ", $1, " seconds\n");
+		$joinedConflicts++;
+	    } else {
+	        #print($2, " REPEATED conflict ", $1 - $conflictEnd{$2}, " seconds later at ", $1, " seconds\n");
+		$ongoingRepeatConflicts{$2} = true;
+	    }
+	} else {
+	    #print($2, " conflict starts at ", $conflictStart{$2}, " seconds\n");
+	}
+	$conflictStart{$2} = $1;
     }
     if($_ =~ /^(\d+.\d+),([\w\d_]+,[\w\d_]+),end/) {
-	$conflictTime = $1 - $conflicts{$2};
-	#print($2, " conflict ends after ", $conflictTime, " seconds\n");
+	$conflictEnd{$2} = $1; #Save end time in map, to log ended conflict and potentially check for re-start
+	$conflictTime = $conflictEnd{$2} - $conflictStart{$2};
 	$totalConflictTime += $conflictTime;
+	if (exists $ongoingRepeatConflicts{$2})
+	{
+	    #print($2, " REPEATED conflict ends after ", $conflictTime, " seconds\n");
+	    $repeatedConflicts++;
+	    delete $ongoingRepeatConflicts{$2};
+	} else {
+	    #print($2, " conflict ends after ", $conflictTime, " seconds\n");
+	}
     }
 }
 close(FCONS);
-$averageConflictTime = $totalConflictTime / $conflictsEnded;
+$startConflictPairs = scalar(keys(%conflictStart));
+$endConflictPairs = scalar(keys(%conflictEnd));
+$totalNumConflicts = $endConflictPairs + $repeatedConflicts;
+#print("Unique started conflict pairs: $startConflictPairs\n");
+print("Unique ended conflict pairs: $endConflictPairs\n");
+#print("(Joined conflicts: $joinedConflicts)\n");
+print("Ended repeated conflicts: $repeatedConflicts\n");
+print("Consolidated number of conflicts: $totalNumConflicts\n");
+$averageConflictTime = $totalConflictTime / $totalNumConflicts;
 print("Average conflict time: $averageConflictTime\n");
 
 #LOS events
