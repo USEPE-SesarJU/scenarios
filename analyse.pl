@@ -20,18 +20,31 @@ $totalDistance = 0.0;
 $totalTime = 0.0;
 while(<FFLIGHT>){
     if($_ =~ /^(\d+.\d+),([\w\d_]+),takeoff,/) {
+#	if (exists $takeoffTime{$2})
+#	{
+#	    print($2, " REPEAT takeoff after ", $1, " seconds\n");
+#	} else {
+#	    print($2, " FIRST takeoff after ", $1, " seconds\n"); 
+#	}
+	
 	$takeoffTime{$2} = $1;
-#	print($2, " takeoff after ", $flights{$2}, " seconds\n");
+	    
     }
     if($_ =~ /(\d+.\d+),([\w\d_]+),landing,(\d+.\d+)$/) {
+#	if (exists $completed{$2})
+#	{
+#	    print($2, " REPEAT landing after ", $1, " seconds\n");
+#	} else {
+#	    print($2, " FIRST landing after ", $1, " seconds\n"); 
+#	}
 	$flightTime = $1 - $takeoffTime{$2};
-#	print($2, " landed after ", $flightTime, " seconds, ", $3, " meters\n");
-	$completed{$1} = true;
+	$completed{$2} = true;
 	$totalTime += $flightTime;
 	$totalDistance += $3;
     }
 }
 close(FFLIGHT);
+#print %completed;
 $numLanded =  scalar(keys(%completed));
 print("Completed flights: $numLanded\n");
 
