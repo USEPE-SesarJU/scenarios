@@ -1,5 +1,5 @@
 00:00:00.00> PLUGIN LOAD USEPE
-00:00:00.00> USEPE CONFIG /home/ror/ws/scenarios/exercise_3/settings_exe_3_ref.cfg
+00:00:00.00> USEPE CONFIG /home/oda/ws/scenarios/exercise_3/settings_exe_3_ref.cfg
 00:00:00.00> USEPE ON
 00:00:00.00> ASAS ON
 00:00:00.00> CDMETHOD StateBased
