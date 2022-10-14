@@ -16,19 +16,22 @@ if (@flightfiles > 1) {
 open(FFLIGHT, '<', $flightfiles[0]) or die("Failed to open $flightfiles[0]");
 %takeoffTime;
 %completed;
+%flightTime;
+%flightDistance;
 $totalDistance = 0.0;
 $totalTime = 0.0;
 while(<FFLIGHT>){
     if($_ =~ /^(\d+.\d+),([\w\d_]+),takeoff,/) {
-#	if (exists $takeoffTime{$2})
-#	{
+	if (exists $takeoffTime{$2})
+	{
 #	    print($2, " REPEAT takeoff after ", $1, " seconds\n");
-#	} else {
-#	    print($2, " FIRST takeoff after ", $1, " seconds\n"); 
-#	}
-	
+	    delete $completed{$2};
+	} else {
+#	    print($2, " FIRST takeoff after ", $1, " seconds\n");
+	    $flightTime{$2} = 0;
+	    $flightDistance{$2} = 0; 
+	}
 	$takeoffTime{$2} = $1;
-	    
     }
     if($_ =~ /(\d+.\d+),([\w\d_]+),landing,(\d+.\d+)$/) {
 #	if (exists $completed{$2})
@@ -37,15 +40,20 @@ while(<FFLIGHT>){
 #	} else {
 #	    print($2, " FIRST landing after ", $1, " seconds\n"); 
 #	}
-	$flightTime = $1 - $takeoffTime{$2};
+	$time = $1 - $takeoffTime{$2};
 	$completed{$2} = true;
-	$totalTime += $flightTime;
-	$totalDistance += $3;
+	$flightTime{$2} += $time;
+	$flightDistance{$2} += $3;
     }
 }
 close(FFLIGHT);
 #print %completed;
 $numLanded =  scalar(keys(%completed));
+# Iterate over %completed and sum up time & distance flights
+foreach $key ( keys(%completed)) {
+    $totalTime += $flightTime{$key};
+    $totalDistance += $flightDistance{$key};
+}
 print("Completed flights: $numLanded\n");
 
 $avgerageDistance = $totalDistance / $numLanded;
