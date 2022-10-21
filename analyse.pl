@@ -1,9 +1,32 @@
 #!/usr/bin/perl
+$numArguments = $#ARGV+1;
+
+if ($numArguments != 1 && $numArguments != 3) {
+  die ("Usage: analyse.pl DIRECTORY [--area] [AREA IN SQUARE KM]\n");  
+}
+
 $directory = $ARGV[0];
 if (!-d $directory) {
     die ("$directory is not a directory! Terminating");
 }
+
+$area = 0.0;
+if($numArguments == 3) {
+    if (!($ARGV[1] eq "--area")){
+	die ("Usage: analyse.pl DIRECTORY [--area] [AREA IN SQUARE KM]\n");
+    }
+    $area = $ARGV[2];
+    print("Area is $area km2\n");
+}
+
 print("Analysing log files in: $directory\n");
+
+# Exclude the airliners and helicopter from the calculations of flighttime / distance / speed
+sub includeFlight {
+    return index($_[0],"BACKGROUND",0) == 0 ||
+	index($_[0],"SURVEILLANCEOP",0) == 0 ||
+	index($_[0],"DELIVERY",0) == 0;
+}
 
 # Calculate number of flights, average distance flown and average flight time
 @flightfiles = glob " ${directory}/USEPEFLIGHT*";
@@ -20,30 +43,41 @@ open(FFLIGHT, '<', $flightfiles[0]) or die("Failed to open $flightfiles[0]");
 %flightDistance;
 $totalDistance = 0.0;
 $totalTime = 0.0;
+$simulationEnd = 0.0; # Last observed event in flightlog
 while(<FFLIGHT>){
     if($_ =~ /^(\d+.\d+),([\w\d_]+),takeoff,/) {
-	if (exists $takeoffTime{$2})
-	{
-#	    print($2, " REPEAT takeoff after ", $1, " seconds\n");
-	    delete $completed{$2};
+	if (includeFlight($2)) {
+	    if (exists $takeoffTime{$2})
+	    {
+		#	    print($2, " REPEAT takeoff after ", $1, " seconds\n");
+		delete $completed{$2};
+	    } else {
+		#	    print($2, " FIRST takeoff after ", $1, " seconds\n");
+		$flightTime{$2} = 0;
+		$flightDistance{$2} = 0; 
+	    }
+	    $takeoffTime{$2} = $1;
+	    $simulationEnd = $1;
 	} else {
-#	    print($2, " FIRST takeoff after ", $1, " seconds\n");
-	    $flightTime{$2} = 0;
-	    $flightDistance{$2} = 0; 
+	    #print("Skipping takeoff for $2!\n");
 	}
-	$takeoffTime{$2} = $1;
     }
     if($_ =~ /(\d+.\d+),([\w\d_]+),landing,(\d+.\d+)$/) {
-#	if (exists $completed{$2})
-#	{
-#	    print($2, " REPEAT landing after ", $1, " seconds\n");
-#	} else {
-#	    print($2, " FIRST landing after ", $1, " seconds\n"); 
-#	}
-	$time = $1 - $takeoffTime{$2};
-	$completed{$2} = true;
-	$flightTime{$2} += $time;
-	$flightDistance{$2} += $3;
+	if (includeFlight($2)) {
+	    #	if (exists $completed{$2})
+	    #	{
+	    #	    print($2, " REPEAT landing after ", $1, " seconds\n");
+	    #	} else {
+	    #	    print($2, " FIRST landing after ", $1, " seconds\n"); 
+	    #	}
+	    $time = $1 - $takeoffTime{$2};
+	    $completed{$2} = true;
+	    $flightTime{$2} += $time;
+	    $flightDistance{$2} += $3;
+	    $simulationEnd = $1;
+	}  else {
+	    #print("Skipping landing for $2!\n");
+	}
     }
 }
 close(FFLIGHT);
@@ -59,11 +93,25 @@ print("Started flights: $numStarted\n");
 print("Completed flights: $numLanded\n");
 
 $avgerageDistance = $totalDistance / $numLanded;
-print("Average distance flown: $avgerageDistance\n");
+print("Average distance flown (of completed flights): $avgerageDistance\n");
 
-#print("Totaltime: $totalTime\n");
 $averageTime = $totalTime / $numLanded;
-print("Average flight time: $averageTime\n");
+print("Average flight time (of completed flights): $averageTime\n");
+
+#Calculate total flying time including background flights not completed
+foreach $key ( keys(%takeoffTime)) {
+    if (!exists($completed{$key})) {
+	$airborneTime = $simulationEnd - $takeoffTime{$key};
+#	print("Adding $airborneTime seconds for $key\n");
+	$totalTime += $airborneTime;
+    }
+}
+
+print("Total flight time (including non-completed flights): $totalTime\n");
+if ($area > 0) {
+    $density = $totalTime/$simulationEnd/$area;
+    print("Traffic density: $density\n");
+}
 
 #Conflicts: Calculate actual number of conflicts, total conflict time and then average conflict time
 @conffiles = glob " ${directory}/USEPECONF*";
