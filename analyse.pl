@@ -48,12 +48,14 @@ while(<FFLIGHT>){
 }
 close(FFLIGHT);
 #print %completed;
+$numStarted = scalar(keys(%takeoffTime));
 $numLanded =  scalar(keys(%completed));
 # Iterate over %completed and sum up time & distance flights
 foreach $key ( keys(%completed)) {
     $totalTime += $flightTime{$key};
     $totalDistance += $flightDistance{$key};
 }
+print("Started flights: $numStarted\n");
 print("Completed flights: $numLanded\n");
 
 $avgerageDistance = $totalDistance / $numLanded;
@@ -122,7 +124,11 @@ print("Unique ended conflict pairs: $endConflictPairs\n");
 #print("(Joined conflicts: $joinedConflicts)\n");
 print("Ended repeated conflicts: $repeatedConflicts\n");
 print("Consolidated number of conflicts: $totalNumConflicts\n");
-$averageConflictTime = $totalConflictTime / $totalNumConflicts;
+$averageConflictTime = 0;
+if ($totalNumConflicts > 0)
+{
+    $averageConflictTime = $totalConflictTime / $totalNumConflicts;
+}
 print("Average conflict time: $averageConflictTime\n");
 
 #LOS events
@@ -135,11 +141,11 @@ print("LOS events: $los");
 if (@cpafiles > 1) {
     # decide what to do here if there are no matching files,
     # or multiple matching files
-    die("More than 1 LOS log in ${directory}! Terminating");
+    die("More than 1 CPA log in ${directory}! Terminating");
 } elsif (@cpafiles < 1) {
     # decide what to do here if there are no matching files,
     # or multiple matching files
-    die("No LOS log in ${directory}? Terminating");
+    die("No CPA log in ${directory}? Terminating");
 }
 open(FCPA, '<', $cpafiles[0]) or die("Failed to open $losfile[0]");
 %cpas;
