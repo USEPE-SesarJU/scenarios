@@ -1,3 +1,5 @@
 .vscode
 lookup_tables/
 *.graphml
+exercise_3/output/ml_plugin/
+exercise_3/output/*_high_*/
