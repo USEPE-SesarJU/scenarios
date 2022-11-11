@@ -2,4 +2,4 @@
 lookup_tables/
 *.graphml
 exercise_3/output/ml_plugin/
-exercise_3/output/*_high_*/
+exercise_3/output/high_density/
