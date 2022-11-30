@@ -1,0 +1,7 @@
+# CLOSEST POINT OF APPROACH LOG
+# Shortest distance between 2 UAS during their conflict
+# 
+# Simulation Time [s], UAS1, UAS2, Distance [m]
+# simt
+102.00000000,BACKGROUND2,BACKGROUND6,0.87784615
+1228.00000000,BACKGROUND103,BACKGROUND96,3.60022893
