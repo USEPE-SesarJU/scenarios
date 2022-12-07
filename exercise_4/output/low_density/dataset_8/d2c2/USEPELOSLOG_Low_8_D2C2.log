@@ -1,0 +1,7 @@
+# LOSS OF SEPARATION LOG
+# Start and end of all loss of separation
+# 
+# Simulation Time [s], UAS1, UAS2, Start/End
+# simt
+1721.00000000,BACKGROUND15,BACKGROUND17,start
+1725.00000000,BACKGROUND15,BACKGROUND17,end
