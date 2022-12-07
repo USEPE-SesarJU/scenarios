@@ -1,5 +1,5 @@
 00:00:00.00> PLUGIN LOAD USEPE
-00:00:00.00> USEPE CONFIG /home/ror/ws/scenarios/exercise_corridor_focus/settings_exe_corridor_focus_ref.cfg
+00:00:00.00> USEPE CONFIG /home/ror/ws/scenarios/exercise_4/settings_exe_4_ref.cfg
 00:00:00.00> USEPE ON
 00:00:00.00> CDMETHOD StateBasedUsepe
 00:00:00.00> ZONER 0.0202483875
