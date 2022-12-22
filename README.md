@@ -4,7 +4,7 @@ Scenario files, with configuration and data, for USEPE simulations, both referen
 
 ## Exercises
 
-1. Last Mile Delivery (_to be added_)
+1. Last Mile Delivery (In directory exercise_1)
 2. Emergency Services (In directory exercise_2)
 3. Urban Surveillance (In directory exercise_3)
 
