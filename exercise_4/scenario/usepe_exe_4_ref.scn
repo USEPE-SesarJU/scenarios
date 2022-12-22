@@ -1,7 +1,7 @@
-00:00:00.00> PLUGIN LOAD USEPE
-00:00:00.00> USEPE CONFIG /home/ror/ws/scenarios/exercise_4/settings_exe_4_ref.cfg
-00:00:00.00> USEPE ON
-00:00:00.00> CDMETHOD StateBasedUsepe
+00:00:00.00> PLUGIN LOAD D2C2
+00:00:00.00> D2C2 CONFIG /home/ror/ws/scenarios/exercise_4/settings_exe_4_ref.cfg
+00:00:00.00> D2C2 ON
+00:00:00.00> CDMETHOD StateBasedD2C2
 00:00:00.00> ZONER 0.0202483875
 00:00:00.00> ZONEDH 32.8084
 00:00:00.00> DTLOOK 10
